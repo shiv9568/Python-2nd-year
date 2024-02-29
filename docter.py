@@ -1,6 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
 import pandas as pd
+import matplotlib.pyplot as plt
+import threading
+
+print("this is my ai ml project")
 
 def load_data(file_path):
     
@@ -15,6 +19,13 @@ def display_data():
     
     file_path = "healthcare_dataset.csv"  
     medical_data = load_data(file_path)
+    threading.Thread(target=display_plot, args=(medical_data,)).start()
+    medical_data['Blood Type'].hist(bins=50)
+    plt.xlabel('Blood Type')
+    plt.ylabel('Test Results')
+    plt.title('Histogram of Blood Type')
+    plt.show()
+
 
     
     tree = ttk.Treeview(root)
@@ -39,6 +50,12 @@ def display_data():
 
     
     root.mainloop()
-
+     
+def display_plot(medical_data):
+    medical_data['Blood Type'].hist(bins=50)
+    plt.xlabel('Blood Type')
+    plt.ylabel('Test Results')
+    plt.title('Histogram of Blood Type')
+    plt.show()
 
 display_data()
